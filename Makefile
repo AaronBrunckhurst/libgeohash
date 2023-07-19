@@ -11,6 +11,11 @@ test:
 	gcc geohash_test.c geohash.c 	
 	./a.out
 	rm a.out
+
+vtest:
+	gcc geohash_test.c geohash.c
+	valgrind ./a.out
+	rm a.out
 	
 clean: 
 	rm -rf *.a *.o
