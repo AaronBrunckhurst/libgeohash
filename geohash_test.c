@@ -69,7 +69,7 @@ void checkHashes(char* hash, char* expected) {
     }
 }
 
-void checkNeighbors(char** neighbors, char** expectedNeighbors) {
+void checkNeighbors(char neighbors[8][MAX_GEOHASH_LENGTH], char** expectedNeighbors) {
  
     int i;
     for(i = 0; i < 8; i++)
@@ -110,18 +110,20 @@ int main() {
     
     // Neighbors
     
-    char** neighbors = geohash_neighbors("ezs42");
+    char neighbors_dst[8][MAX_GEOHASH_LENGTH];
+    
+    geohash_neighbors("ezs42", neighbors_dst);
 
     char* expectedNeighbors[8] = {"ezs48", "ezs49", "ezs43", "ezs41", "ezs40", "ezefp", "ezefr", "ezefx"};
-    checkNeighbors(neighbors, expectedNeighbors);
+    checkNeighbors(neighbors_dst, expectedNeighbors);
     
     expectedNeighbors[0] = "9xj5smj4w40q"; expectedNeighbors[1] = "9xj5smj4w40w";
     expectedNeighbors[2] = "9xj5smj4w40t"; expectedNeighbors[3] = "9xj5smj4w40s";
     expectedNeighbors[4] = "9xj5smj4w40k"; expectedNeighbors[5] = "9xj5smj4w40h";
     expectedNeighbors[6] = "9xj5smj4w40j"; expectedNeighbors[7] = "9xj5smj4w40n";
     
-    neighbors = geohash_neighbors("9xj5smj4w40m");
-    checkNeighbors(neighbors, expectedNeighbors);
+    geohash_neighbors("9xj5smj4w40m", neighbors_dst);
+    checkNeighbors(neighbors_dst, expectedNeighbors);
     
     return 0;
 }

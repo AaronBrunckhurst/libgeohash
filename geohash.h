@@ -28,6 +28,8 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#define MAX_GEOHASH_LENGTH 12
+
 // Metric in meters
 typedef struct GeoBoxDimensionStruct {
 	
@@ -69,7 +71,7 @@ extern GeoCoord geohash_decode(char* hash);
  *                  N, NE, E, SE, S, SW, W, NW
  * 					0, 1,  2,  3, 4,  5, 6, 7
  */ 
-extern char** geohash_neighbors(char* hash);
+int geohash_neighbors(char* hash, char neighbors_dst[8][MAX_GEOHASH_LENGTH]);
 
 /*
  * Returns the width and height of a precision value.

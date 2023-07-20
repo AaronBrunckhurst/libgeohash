@@ -242,27 +242,28 @@ GeoCoord geohash_decode(char *hash) {
 }
 
 
-char** geohash_neighbors(char *hash) {
-
-    char** neighbors = NULL;
+int geohash_neighbors(char *hash, char neighbors_dst[8][MAX_GEOHASH_LENGTH]) {
     
     if(hash) {
         
         // N, NE, E, SE, S, SW, W, NW
-        neighbors = (char**)malloc(sizeof(char*) * 8);
         
-        neighbors[0] = get_neighbor(hash, NORTH);
-        neighbors[1] = get_neighbor(neighbors[0], EAST);
-        neighbors[2] = get_neighbor(hash, EAST);
-        neighbors[3] = get_neighbor(neighbors[2], SOUTH);
-        neighbors[4] = get_neighbor(hash, SOUTH);
-        neighbors[5] = get_neighbor(neighbors[4], WEST);                
-        neighbors[6] = get_neighbor(hash, WEST);
-        neighbors[7] = get_neighbor(neighbors[6], NORTH);        
+        neighbors_dst[0] = get_neighbor(hash, NORTH);
+        neighbors_dst[1] = get_neighbor(neighbors_dst[0], EAST);
+        neighbors_dst[2] = get_neighbor(hash, EAST);
+        neighbors_dst[3] = get_neighbor(neighbors_dst[2], SOUTH);
+        neighbors_dst[4] = get_neighbor(hash, SOUTH);
+        neighbors_dst[5] = get_neighbor(neighbors_dst[4], WEST);                
+        neighbors_dst[6] = get_neighbor(hash, WEST);
+        neighbors_dst[7] = get_neighbor(neighbors_dst[6], NORTH);
+	return 1;
 
     }
+    else {
+      memset(neighbors_dst, '\0', sizeof(neighbors_dst));
+    }
     
-    return neighbors;
+    return 0;
 }
 
 GeoBoxDimension geohash_dimensions_for_precision(int precision) {
